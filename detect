@@ -1,19 +1,52 @@
 #!/bin/bash
+BROWSER='firefox'
+TERMINAL='kitty'
+FM='nemo' #GUI file manager
+TFM='ranger' #terminal file manager
+if [[ -f /usr/bin/zypper ]];
+then
+	sudo zypper --non-interactive install wget dialog curl
+elif [[ -f /usr/bin/pacman ]];
+then
+	sudo pacman -Sy wget dialog curl --noconfirm
+elif [[ -f /usr/bin/apt ]];
+then
+	sudo apt install wget dialog curl -y
+fi
 
-DISTRO=$(hostnamectl | grep 'Operating System' | awk '{print $3$4$5}')
+
+CHOICE=$(dialog --clear --title "Okno dialogowe Checklist" --backtitle "BASH" --checklist "Optional support for:" 11 40 4  GNOME "Minimal gnome-shell instalation" "off" dwm "dwm windowm manager by suckless.org" "off" bspwm "bspwm tiling window manager" "off" i3 "i3 tiling window manager" "off" --stdout)
+
+echo $CHOICE
+
+
+DISTRO=$(hostnamectl | grep 'Operating System' | awk '{print $3 $4 $5}')
 if [[ -f /usr/bin/zypper ]];
 then
 	echo "you are on $DISTRO"
-elif [[ -f /usr/bin/pacman ]]
+	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/openSUSE:Factory/standard/openSUSE:Factory.repo
+	sudo zypper refresh
+	sudo zypper --non-interactive install slick-greeter lightdm xkill dialog wget curl xorg-x11-server 
+
+	if [[ $CHOICE == *GNOME* ]]
+
+
+
+
+
+
+
+
+elif [[ -f /usr/bin/pacman ]];
 then
 	echo "you are on $DISTRO"
-elif [[ -f /usr/bin/apt ]]
+elif [[ -f /usr/bin/apt ]];
 then
 	echo "you are on $DISTRO"
 	if [[ $DISTRO ==  *Debian*  ]];
 	then
 
-	else
+		echo "debian based"
 
 	fi
 fi
