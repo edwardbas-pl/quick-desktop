@@ -3,6 +3,15 @@ BROWSER='firefox'
 TERMINAL='kitty'
 FM='nemo' #GUI file manager
 TFM='ranger' #terminal file manager
+COMPOSITOR='picom'
+CLIPBOARD_MANAGER='xclip'
+OTHER=" numlockx qbittorrent gimp playerctl "
+TERMINAL_APPS=" git rar dialog ranger gtop htop vim udisks2 "
+GUI_backend="xclip spectacle pulseaudio pavucontrol feh w3m alsa-firmware apulse pulseaudio-alsa alsa-oss nodejs"
+GUI=" lxsession nemo xorg polybar lxsession dunst lxappearance yad xdotool"
+office_suite=" libreoffice galculator "
+multimedia_player="mpv"
+
 if [[ -f /usr/bin/zypper ]];
 then
 	sudo zypper --non-interactive install wget dialog curl
@@ -24,17 +33,18 @@ DISTRO=$(hostnamectl | grep 'Operating System' | awk '{print $3 $4 $5}')
 if [[ -f /usr/bin/zypper ]];
 then
 	echo "you are on $DISTRO"
+	sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/openSUSE:Factory/standard/openSUSE:Factory.repo
+	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/openSUSE:Factory/standard/openSUSE:Factory.repo
+	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/home:Simmphonie/openSUSE_Tumbleweed/home:Simmphonie.repo
+	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/home:rubo:pfetch/openSUSE_Tumbleweed/home:rubo:pfetch.repo
+	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/home:bfein/openSUSE_Tumbleweed/home:bfein.repo
 	sudo zypper refresh
-	sudo zypper --non-interactive install slick-greeter lightdm xkill dialog wget curl xorg-x11-server $TERMINAL $BROWSER $FM $TFM
+	sudo npm install p3x-onenote
+	sudo zypper --non-interactive ar https://packages.microsoft.com/yumrepos/ms-teams/ ms-teams
+	sudo zypper --non-interactive install slick-greeter python-pywal lightdm xkill dialog wget curl xorg-x12-server teams npm unrar pfetch i3lock-color $TERMINAL $BROWSER $FM $TFM $COMPOSITOR $CLIPBOARD_MANAGER $OTHER $TERMINAL_APPSG $UI_backend $GUI $office_suite $multimedia_player	
 
-
-	if [[ $CHOICE == *GNOME* ]]
-	then 
-		echo 'GNOME'
-	fi
-
-	if [[ $CHOICE == *dwm* ]]
+	if [[ $CHOICE == *dwm* ]]	
 	then 
 		echo 'dwm'
 	fi
