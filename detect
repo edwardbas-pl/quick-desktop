@@ -7,4 +7,13 @@ then
 elif [[ -f /usr/bin/pacman ]]
 then
 	echo "you are on $DISTRO"
+elif [[ -f /usr/bin/apt ]]
+then
+	echo "you are on $DISTRO"
+	if [[ $DISTRO ==  *Debian*  ]];
+	then
+
+	else
+
+	fi
 fi
