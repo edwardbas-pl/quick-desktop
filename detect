@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DISTRO=$(hostnamectl | grep 'Operating System' | awk '{print $3$4$5}')
+if [[ -f /usr/bin/zypper ]];
+then
+	echo "you are on $DISTRO"
+elif [[ -f /usr/bin/pacman ]]
+then
+	echo "you are on $DISTRO"
+fi
