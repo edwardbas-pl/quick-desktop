@@ -17,7 +17,7 @@ fi
 
 CHOICE=$(dialog --clear --title "Okno dialogowe Checklist" --backtitle "BASH" --checklist "Optional support for:" 11 40 4  GNOME "Minimal gnome-shell instalation" "off" dwm "dwm windowm manager by suckless.org" "off" bspwm "bspwm tiling window manager" "off" i3 "i3 tiling window manager" "off" --stdout)
 
-echo $CHOICE
+#echo $CHOICE
 
 
 DISTRO=$(hostnamectl | grep 'Operating System' | awk '{print $3 $4 $5}')
@@ -26,20 +26,34 @@ then
 	echo "you are on $DISTRO"
 	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/openSUSE:Factory/standard/openSUSE:Factory.repo
 	sudo zypper refresh
-	sudo zypper --non-interactive install slick-greeter lightdm xkill dialog wget curl xorg-x11-server 
+	sudo zypper --non-interactive install slick-greeter lightdm xkill dialog wget curl xorg-x11-server $TERMINAL $BROWSER $FM $TFM
+
 
 	if [[ $CHOICE == *GNOME* ]]
+	then 
+		echo 'GNOME'
+	fi
+
+	if [[ $CHOICE == *dwm* ]]
+	then 
+		echo 'dwm'
+	fi
+
+	if [[ $CHOICE == *bspwm* ]]
+	then 
+		echo 'bspwm'
+	fi
 
 
-
-
-
-
-
+	if [[ $CHOICE == *i3* ]]
+	then 
+		echo 'i3'
+	fi
 
 elif [[ -f /usr/bin/pacman ]];
 then
 	echo "you are on $DISTRO"
+
 elif [[ -f /usr/bin/apt ]];
 then
 	echo "you are on $DISTRO"
@@ -50,3 +64,13 @@ then
 
 	fi
 fi
+
+#if gnome is installed it will also install some extensions
+
+
+
+#deploy my dotfiles
+cd
+git clone https:://github.com/edwardbas-pl/backup
+cd backup
+./Restore
