@@ -31,17 +31,10 @@ CHOICE=$(dialog --clear --title "Okno dialogowe Checklist" --backtitle "BASH" --
 
 DISTRO=$(hostnamectl | grep 'Operating System' | awk '{print $3 $4 $5}')
 if [[ -f /usr/bin/zypper ]];
-then
+jhen
 	echo "you are on $DISTRO"
-	sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/openSUSE:Factory/standard/openSUSE:Factory.repo
-	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/home:Simmphonie/openSUSE_Tumbleweed/home:Simmphonie.repo
-	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/home:rubo:pfetch/openSUSE_Tumbleweed/home:rubo:pfetch.repo
-	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/home:bfein/openSUSE_Tumbleweed/home:bfein.repo
-	sudo zypper --non-interactive ar https://packages.microsoft.com/yumrepos/ms-teams/ ms-teams
-	sudo zypper --non-interactive refresh
-	sudo npm install p3x-onenote
-	sudo zypper --non-interactive install lightdm-slick-greeter cmake python3-dev python3-pywal lightdm xkill dialog wget curl xorg-x11-server teams npm unrar pfetch i3lock-color $TERMINAL $BROWSER $FM $TFM $COMPOSITOR $CLIPBOARD_MANAGER $OTHER $TERMINAL_APPSG $UI_backend $GUI $office_suite $multimedia_player	
+
+ 	# $TERMINAL $BROWSER $FM $TFM $COMPOSITOR $CLIPBOARD_MANAGER $OTHER $TERMINAL_APPSG $UI_backend $GUI $office_suite $multimedia_player	
 
 	if [[ $CHOICE == *dwm* ]]	
 	then 
