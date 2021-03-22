@@ -31,7 +31,7 @@ CHOICE=$(dialog --clear --title "Okno dialogowe Checklist" --backtitle "BASH" --
 
 DISTRO=$(hostnamectl | grep 'Operating System' | awk '{print $3 $4 $5}')
 if [[ -f /usr/bin/zypper ]];
-jhen
+then
 	echo "you are on $DISTRO"
 
  	# $TERMINAL $BROWSER $FM $TFM $COMPOSITOR $CLIPBOARD_MANAGER $OTHER $TERMINAL_APPSG $UI_backend $GUI $office_suite $multimedia_player	
