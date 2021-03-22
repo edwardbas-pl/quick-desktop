@@ -8,10 +8,10 @@ CLIPBOARD_MANAGER='xclip'
 OTHER=" numlockx qbittorrent gimp playerctl "
 TERMINAL_APPS=" git rar dialog ranger gtop htop vim udisks2 "
 GUI_backend="xclip spectacle pulseaudio pavucontrol feh w3m alsa-firmware apulse pulseaudio-alsa alsa-oss nodejs"
-GUI=" lxsession nemo xorg polybar lxsession dunst lxappearance yad xdotool"
+GUI=" lxsession nemo xorg polybar lxsession dunst lxappearance xdotool"
 office_suite=" libreoffice galculator "
 multimedia_player="mpv"
-
+#yad 
 
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/openSUSE:Factory/standard/openSUSE:Factory.repo

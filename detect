@@ -8,7 +8,7 @@ CLIPBOARD_MANAGER='xclip'
 OTHER=" numlockx qbittorrent gimp playerctl "
 TERMINAL_APPS=" git rar dialog ranger gtop htop vim udisks2 "
 GUI_backend="xclip spectacle pulseaudio pavucontrol feh w3m alsa-firmware apulse pulseaudio-alsa alsa-oss nodejs"
-GUI=" lxsession nemo xorg polybar lxsession dunst lxappearance yad xdotool"
+GUI=" lxsession nemo polybar lxsession dunst lxappearance yad xdotool"
 office_suite=" libreoffice galculator "
 multimedia_player="mpv"
 
@@ -41,22 +41,31 @@ then
 	sudo zypper --non-interactive ar https://packages.microsoft.com/yumrepos/ms-teams/ ms-teams
 	sudo zypper --non-interactive refresh
 	sudo npm install p3x-onenote
-	sudo zypper --non-interactive install slick-greeter python-pywal lightdm xkill dialog wget curl xorg-x11-server teams npm unrar pfetch i3lock-color $TERMINAL $BROWSER $FM $TFM $COMPOSITOR $CLIPBOARD_MANAGER $OTHER $TERMINAL_APPSG $UI_backend $GUI $office_suite $multimedia_player	
+	sudo zypper --non-interactive install lightdm-slick-greeter cmake python3-dev python3-pywal lightdm xkill dialog wget curl xorg-x11-server teams npm unrar pfetch i3lock-color $TERMINAL $BROWSER $FM $TFM $COMPOSITOR $CLIPBOARD_MANAGER $OTHER $TERMINAL_APPSG $UI_backend $GUI $office_suite $multimedia_player	
 
 	if [[ $CHOICE == *dwm* ]]	
 	then 
 		echo 'dwm'
+		cd
+		git clone https://github.com/edwardbas-pl/dwm
+		cd dwm
+		make
+		sudo make install
+		cd ..
+		rm -rf dwm
 	fi
 
 	if [[ $CHOICE == *bspwm* ]]
 	then 
 		echo 'bspwm'
+		sudo zypper --non-interactive install bspwm sxhkd
 	fi
 
 
 	if [[ $CHOICE == *i3* ]]
 	then 
 		echo 'i3'
+		sudo zypper --non-interactive install i3-gaps
 	fi
 	sudo systemctl enable --now lightdm
 
