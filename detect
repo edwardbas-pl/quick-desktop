@@ -38,10 +38,10 @@ then
 	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/home:Simmphonie/openSUSE_Tumbleweed/home:Simmphonie.repo
 	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/home:rubo:pfetch/openSUSE_Tumbleweed/home:rubo:pfetch.repo
 	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/home:bfein/openSUSE_Tumbleweed/home:bfein.repo
+	sudo zypper --non-interactive ar https://packages.microsoft.com/yumrepos/ms-teams/ ms-teams
 	sudo zypper --non-interactive refresh
 	sudo npm install p3x-onenote
-	sudo zypper --non-interactive ar https://packages.microsoft.com/yumrepos/ms-teams/ ms-teams
-	sudo zypper --non-interactive install slick-greeter python-pywal lightdm xkill dialog wget curl xorg-x12-server teams npm unrar pfetch i3lock-color $TERMINAL $BROWSER $FM $TFM $COMPOSITOR $CLIPBOARD_MANAGER $OTHER $TERMINAL_APPSG $UI_backend $GUI $office_suite $multimedia_player	
+	sudo zypper --non-interactive install slick-greeter python-pywal lightdm xkill dialog wget curl xorg-x11-server teams npm unrar pfetch i3lock-color $TERMINAL $BROWSER $FM $TFM $COMPOSITOR $CLIPBOARD_MANAGER $OTHER $TERMINAL_APPSG $UI_backend $GUI $office_suite $multimedia_player	
 
 	if [[ $CHOICE == *dwm* ]]	
 	then 
