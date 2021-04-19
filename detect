@@ -12,6 +12,22 @@ GUI=" lxsession nemo xorg polybar lxsession dunst lxappearance yad xdotool"
 office_suite=" libreoffice galculator "
 multimedia_player="mpv"
 
+function init_detect () {
+	if [[ `/sbin/init --version` =~ upstart ]]; 
+	then 
+		INIT="upstart"	
+	elif [[ `systemctl` =~ -\.mount ]]; 
+	then 
+		INIT="systemd";
+	elif [[ -f /etc/init.d/cron && ! -h /etc/init.d/cron ]]; 
+	then 
+		INIT="sysv-init";
+	else 
+		INIT="cannot tell"; 
+	fi
+
+}
+
 if [[ -f /usr/bin/zypper ]];
 then
 	sudo zypper --non-interactive install wget dialog curl
@@ -64,21 +80,85 @@ then
 elif [[ -f /usr/bin/pacman ]];
 then
 	echo "you are on $DISTRO"
+	if [[ ! -f /usr/bin/yay ]]
+	then
+		echo "YAY is not installed... instaling"
+		sudo pacman -Sy git --noconfirm
+		cd
+		git clone https://aur.archlinux.org/yay-git.git
+		cd yay-git
+		makepkg -si --noconfirm
+		cd
+		rm -rf yay-git
+	fi
+	
+	if [[ -f /usr/bin/yay ]]
+	then
+		yay -S --noconfirm $BROWSER $TERMINAL $TERMINAL_APPS $FM $TFM $multimedia_player $CLIPBOARD_MANAGER $GUI_backend $office_suite
+		
+		if [[ $CHOICE == *dwm* ]]	
+		then 
+			echo 'dwm'
+			git clone http://github.com/edwardbas-pl/dwm
+			cd dwm
+			make
+			sudo make install
+			yay -S  --noconfirm $GUI
+		fi
+		if [[ $CHOICE == *bspwm* ]]
+		then 
+			echo 'bspwm'
+			yay -S   --noconfirm $GUI bspwm $COMPOSITOR
+		fi
+		if [[ $CHOICE == *i3* ]]
+		then 
+			echo 'i3'
+			yay -S  --noconfirm $GUI i3-gaps $COMPOSITOR
 
-elif [[ -f /usr/bin/apt ]];
+		fi
+		if [[ $CHOICE == *GNOME* ]]
+		then 
+			echo 'GNOME'
+			yay -S --noconfirm gnome-shell gnome-control-center firefox-extension-gnome-shell-integration gnome-tweaks
+			yay -S --noconfirm gnome-shell-extension-x11gestures touchegg
+
+			distro=$( grep -m 1 NAME /etc/os-release )
+			if [[ ${distro} == *Arch* ]];
+			then
+				sudo systemctl enable --now touchegg 
+			fi 
+			if [[ ${distro} == *Artix* ]];
+			then
+				echo "you need to manualy enable touchegg to start wih your system... "
+				echo "im working on it.. Please be patient..."
+				echo "Press enter to continue"
+				read pause
+			fi
+
+		fi
+	else
+		echo "erro ocured"
+	fi
+
+elif [[ -f /usr/bin/apt ]]; #if you are on debian based distro
 then
 	echo "you are on $DISTRO"
 	if [[ $DISTRO ==  *Debian*  ]];
 	then
-
 		echo "debian based"
-
+	else # if you are on ubundu derivtive
 	fi
 fi
 
 #if gnome is installed it will also install some extensions
 
-
+#if [[ $CHOICE == *GNOME* ]]
+#then
+#	wget https://raw.githubusercontent.com/brunelli/gnome-shell-extension-installer/master/gnome-shell-extension-installer
+#	chmod +x gnome-shell-extension-installer
+#	./gnome-shell-extension-installer
+#
+#fi
 
 #deploy my dotfiles
 cd
