@@ -13,15 +13,20 @@ office_suite=" libreoffice galculator "
 multimedia_player="mpv"
 
 function init_detect () {
-	if [[ `/sbin/init --version` =~ upstart ]]; 
-	then 
-		INIT="upstart"	
-	elif [[ `systemctl` =~ -\.mount ]]; 
+	PS=$( ps -p 1 )
+	if [[ $PS == *systemd* ]]; 
 	then 
 		INIT="systemd";
-	elif [[ -f /etc/init.d/cron && ! -h /etc/init.d/cron ]]; 
-	then 
-		INIT="sysv-init";
+	elif [[ $PS == *init* ]];
+	then
+		INIT="openrc"
+	elif [[ $PS == *runit* ]];
+	then
+		INIT="runit"
+
+	elif [[ $PS == *s6* ]];
+	then
+		INIT="s6"
 	else 
 		INIT="cannot tell"; 
 	fi
@@ -75,7 +80,6 @@ then
 	then 
 		echo 'i3'
 	fi
-	sudo systemctl enable --now lightdm
 
 elif [[ -f /usr/bin/pacman ]];
 then
@@ -121,18 +125,23 @@ then
 			echo 'GNOME'
 			yay -S --noconfirm gnome-shell gnome-control-center firefox-extension-gnome-shell-integration gnome-tweaks
 			yay -S --noconfirm gnome-shell-extension-x11gestures touchegg
-
-			distro=$( grep -m 1 NAME /etc/os-release )
-			if [[ ${distro} == *Arch* ]];
+	
+			if [[ $INIT == *systemd* ]];
 			then
-				sudo systemctl enable --now touchegg 
-			fi 
-			if [[ ${distro} == *Artix* ]];
+				sudo systemctl enable touchegg
+			elif [[ $INIT == *init* ]];
 			then
-				echo "you need to manualy enable touchegg to start wih your system... "
-				echo "im working on it.. Please be patient..."
-				echo "Press enter to continue"
-				read pause
+				yay -S --noconfirm touchegg-openrc
+				artix-chroot /mnt rc-update add touchegg
+	
+			elif [[ $INIT  == *runit* ]];
+			then
+				yay -S --noconfirm touchegg-runit
+				artix-chroot /mnt ln -s /mnt/etc/runit/sv/NetworkManager /mnt/run/runit/touchegg
+			elif [[ $INIT == *s6* ]];
+			then
+				yay -S --noconfirm touchegg-s6
+				artix-chroot /mnt s6-rc-bundle -c /etc/s6/rc/compiled add default touchegg
 			fi
 
 		fi
