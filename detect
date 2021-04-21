@@ -156,6 +156,7 @@ then
 	then
 		echo "debian based"
 	else # if you are on ubundu derivtive
+		echo "ubuntu based"
 	fi
 fi
 
