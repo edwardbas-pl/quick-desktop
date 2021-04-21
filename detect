@@ -13,7 +13,7 @@ office_suite=" libreoffice galculator "
 multimedia_player="mpv"
 
 function init_detect () {
-	PS=$( ps -p 1 )
+	PS=$( ps --pid 1 | grep -q systemd && echo 'systemd' || echo 'init' )
 	if [[ $PS == *systemd* ]]; 
 	then 
 		INIT="systemd";
