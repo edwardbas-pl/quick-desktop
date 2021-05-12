@@ -56,7 +56,7 @@ then
 	alias manager='sudo zypper --non-interactive --gpg-auto-import-keys'
 	echo "you are on $DISTRO"
 	sudo zypper refresh
-	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/openSUSE:Factory/standard/openSUSE:Factory.repo --gpg-auto-import-keys
+	sudo zypper --non-interactive addrepo https://download.opensuse.org/repositories/openSUSE:Factory/standard/openSUSE:Factory.repo 
 	sudo zypper --non-interactive refresh
 	sudo zypper --non-interactive install slick-greeter
 
