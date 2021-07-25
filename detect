@@ -51,3 +51,4 @@ CHOICE=$(dialog --clear --title "Okno dialogowe Checklist" --backtitle "BASH" --
 
 
 DISTRO=$(hostnamectl | grep 'Operating System' | awk '{print $3 $4 $5}')
+echo "You Are on $DISTRO"
