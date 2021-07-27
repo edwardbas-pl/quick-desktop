@@ -25,6 +25,7 @@ games(){
 	sudo dpkg --add-architecture i386
 	wget -nc https://dl.winehq.org/wine-builds/winehq.key
 	sudo apt-key add winehq.key
+	rm winehq.key
 	sudo apt-get update
 	sudo apt-get upgrade -y
 	sudo apt-get install --install-recommends winehq-staging wine-staging wine-staging-i386 wine-staging-amd64 -y
