@@ -27,6 +27,7 @@ deb-src http://deb.debian.org/debian/ unstable main contrib non-free
 ###Steam
 deb [arch=i386,amd64] http://repo.steampowered.com/steam/ precise steam
 " > /etc/apt/sources.list
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F24AEA9FB05498B7
 fi
 
 MPR(){
