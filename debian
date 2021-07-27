@@ -40,9 +40,9 @@ pfetch(){
 	rm pfetch -rf
 }
 
-games()
-MPR()
-pfetch()
+games
+MPR
+pfetch
 
 git clone https://mpr.hunterwittenborn.com/yafetch-git.git
 cd yafetch-git
