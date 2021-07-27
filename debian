@@ -27,7 +27,7 @@ deb-src http://deb.debian.org/debian/ unstable main contrib non-free
 ###Steam
 deb [arch=i386,amd64] http://repo.steampowered.com/steam/ precise steam
 " > /etc/apt/sources.list
-
+fi
 
 MPR(){
 	wget -qO - 'https://proget.hunterwittenborn.com/debian-feeds/makedeb.pub' | gpg --dearmor | sudo tee /usr/share/keyrings/makedeb-archive-keyring.gpg &> /dev/null
