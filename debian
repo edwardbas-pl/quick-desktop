@@ -2,10 +2,14 @@
 sudo apt update
 sudo apt install wget dialog git -y
 
-CHOICE=$(dialog --clear --title "Okno dialogowe Checklist" --backtitle "BASH" --checklist "Optional support for:" 11 40 4  GNOME "Minimal gnome-shell instalation" "off" dwm "dwm windowm manager by suckless.org" "off" bspwm "bspwm tiling window manager" "off" i3 "i3 tiling window manager" "off" --stdout)
+CHOICE=$(dialog --clear --title "Chose type of repos to use" \
+--backtitle "BASH" --radiolist "Stable or SID?" 11 70 4 \
+Stable "Stable debian repos with non-free sofware " "on" \
+SID "Testing debian repos woith non-free software" "off" \
+--stdout)
 echo $CHOICE
 
-MPR () {
+MPR(){
 	wget -qO - 'https://proget.hunterwittenborn.com/debian-feeds/makedeb.pub' | gpg --dearmor | sudo tee /usr/share/keyrings/makedeb-archive-keyring.gpg &> /dev/null
 	echo 'deb [signed-by=/usr/share/keyrings/makedeb-archive-keyring.gpg arch=all] https://proget.hunterwittenborn.com/ makedeb main' | sudo tee /etc/apt/sources.list.d/makedeb.list
 	sudo apt update
@@ -13,7 +17,7 @@ MPR () {
 }
 
 
-games () {
+games(){
 	echo "deb http://download.opensuse.org/repositories/home:/strycore/Debian_10/ ./" | sudo tee /etc/apt/sources.list.d/lutris.list
 	wget -q https://download.opensuse.org/repositories/home:/strycore/Debian_10/Release.key -O- | sudo apt-key add -
 	sudo apt update
