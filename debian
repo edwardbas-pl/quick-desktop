@@ -47,9 +47,6 @@ gpu_detect(){
 	
 }
 
-drivers(){
-
-}
 
 games(){
 	echo "deb http://download.opensuse.org/repositories/home:/strycore/Debian_10/ ./" | sudo tee /etc/apt/sources.list.d/lutris.list
