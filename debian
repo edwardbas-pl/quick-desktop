@@ -16,6 +16,20 @@ MPR(){
 
 }
 
+gpu_detect(){
+
+	GPU=$(lspci | grep -i --color "vga\|3d\|2d")
+	if [[ ${GPU} == *NV* ]];
+	then
+		echo your GPU vendor is NVidia
+		sudo apt install -y nvidia-driver
+	fi
+	
+}
+
+drivers(){
+
+}
 
 games(){
 	echo "deb http://download.opensuse.org/repositories/home:/strycore/Debian_10/ ./" | sudo tee /etc/apt/sources.list.d/lutris.list
